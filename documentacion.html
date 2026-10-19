@@ -609,7 +609,7 @@
         <section id="introduccion">
             <h2><i class="fa-solid fa-book-open"></i> Introducción al Modelo</h2>
             <p>
-                En el juego de <strong>Cacho</strong> (o Alalay), la toma de decisiones gira en torno a qué dados conservar, qué dados volver a lanzar y dónde anotar los resultados obtenidos. Para modelar este proceso de forma estructurada, el simulador del juego en C++ utiliza principalmente dos construcciones fundamentales definidas en <a href="file:///media/rasin/OS/GDrive/Proyectos%20y%20Servicios/cacho-python/cacho-cpp/src/Actuacion.h">Actuacion.h</a>:
+                En el juego de <strong>Cacho</strong> (o Alalay), la toma de decisiones gira en torno a qué dados conservar, qué dados volver a lanzar y dónde anotar los resultados obtenidos. Para modelar este proceso de forma estructurada, el simulador del juego en C++ utiliza principalmente dos construcciones fundamentales definidas en <a href="src/Actuacion.h">Actuacion.h</a>:
             </p>
             <div class="grid-2">
                 <div class="card card-purple">
@@ -629,7 +629,7 @@
             </div>
             <div class="alert alert-info">
                 <i class="fa-solid fa-circle-info"></i>
-                <strong>Contexto del Cacho:</strong> Cada turno de un jugador consiste en hasta dos intentos independientes. En el primer intento del turno, un jugador puede anotar directamente una jugada, dejarla "sobre" la mesa para meter presión al siguiente jugador, o volver a lanzar algunos dados.
+                <strong>Contexto del Cacho y Bono de Chicas:</strong> Cada turno de un jugador consiste en hasta dos intentos independientes. En el primer intento del turno, un jugador puede anotar directamente una jugada, dejarla "sobre" la mesa o volver a lanzar algunos dados. Además, si un jugador logra anotar <strong>al menos 3 dados en cada una de las 6 chicas</strong> (<code>balas &gt;= 3</code>, <code>tontos &gt;= 6</code>, <code>trenes &gt;= 9</code>, <code>cuadras &gt;= 12</code>, <code>quinas &gt;= 15</code> y <code>senas &gt;= 18</code>), recibe automáticamente el <strong>Bono de Chicas (+40 puntos)</strong> en su marcador (<code>bonoChicas = true</code>).
             </div>
         </section>
 
@@ -642,28 +642,17 @@
 
             <div class="code-container">
                 <div class="code-header">
-                    <span class="badge badge-purple">Anotacion.h</span>
+                    <span class="badge badge-purple">Actuacion.h</span>
                     <button class="copy-btn" onclick="copyCode('codeAnotacion')"><i class="fa-solid fa-copy"></i> Copiar</button>
                 </div>
                 <pre><code id="codeAnotacion"><span class="token-keyword">struct</span> <span class="token-type">Anotacion</span> {
-    <span class="token-type">std::string</span> juego;  <span class="token-comment">// Nombre de la categoría de puntaje</span>
     <span class="token-type">int</span> puntos;         <span class="token-comment">// Puntos obtenidos (-1 indica no aplica, 0 indica borrado)</span>
+    <span class="token-type">std::string</span> juego;  <span class="token-comment">// Nombre de la categoría de puntaje</span>
 };</code></pre>
             </div>
 
             <h3>Miembros de la Estructura</h3>
             <ul class="member-list">
-                <li class="member-item">
-                    <div class="member-name">juego <span class="member-type">(std::string)</span></div>
-                    <div class="member-desc">
-                        Identificador de la jugada del tablero. Los valores posibles son:
-                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--text-secondary);">
-                            <li><strong>Chicas:</strong> <code>"balas"</code> (unos), <code>"tontos"</code> (doses), <code>"trenes"</code> (treses), <code>"cuadras"</code> (cuatros), <code>"quinas"</code> (cincos), <code>"senas"</code> (seises).</li>
-                            <li><strong>Mayores:</strong> <code>"escalera"</code>, <code>"full"</code>, <code>"poker"</code>, <code>"grande"</code> (primer grande), <code>"grande2"</code> (segunda grande).</li>
-                            <li><strong>Especiales:</strong> Categorías temporales con aclaraciones como <code>"juego_name (de la 1ra mano)"</code>.</li>
-                        </ul>
-                    </div>
-                </li>
                 <li class="member-item">
                     <div class="member-name">puntos <span class="member-type">(int)</span></div>
                     <div class="member-desc">
@@ -672,6 +661,17 @@
                             <li><strong>Puntaje positivo:</strong> El puntaje calculado según las reglas (p. ej., 20/25 puntos para escalera, 30/35 para full, 40/45 para póker, 50 para grande, o el total sumado de dados repetidos para las chicas).</li>
                             <li><strong>Valor <code>0</code>:</strong> Significa que la categoría ha sido "tachada" o "borrada" en el tablero debido a una mala tirada.</li>
                             <li><strong>Valor <code>-1</code>:</strong> Representa que la anotación no aplica a la jugada actual (por ejemplo, cuando la acción es <code>"lanzar"</code>).</li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="member-item">
+                    <div class="member-name">juego <span class="member-type">(std::string)</span></div>
+                    <div class="member-desc">
+                        Identificador de la jugada del tablero. Los valores posibles son:
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--text-secondary);">
+                            <li><strong>Chicas:</strong> <code>"balas"</code> (unos), <code>"tontos"</code> (doses), <code>"trenes"</code> (treses), <code>"cuadras"</code> (cuatros), <code>"quinas"</code> (cincos), <code>"senas"</code> (seises). Si todas alcanzan al menos 3 dados, se activa el <strong>Bono de Chicas (+40 pts)</strong>.</li>
+                            <li><strong>Mayores:</strong> <code>"escalera"</code>, <code>"full"</code>, <code>"poker"</code>, <code>"grande"</code> (primer grande), <code>"grande2"</code> (segunda grande).</li>
+                            <li><strong>Especiales:</strong> Categorías temporales con aclaraciones como <code>"juego_name (de la 1ra mano)"</code>.</li>
                         </ul>
                     </div>
                 </li>
@@ -692,14 +692,14 @@
                 </div>
                 <pre><code id="codeActuacion"><span class="token-keyword">class</span> <span class="token-type">Actuacion</span> {
 <span class="token-keyword">public</span>:
-    <span class="token-type">std::string</span> accion;             <span class="token-comment">// Tipo de acción ("lanzar", "anotar", "sobre", "nada", "dormida")</span>
-    <span class="token-type">Anotacion</span> anotacion;            <span class="token-comment">// Estructura Anotacion asociada</span>
     <span class="token-type">std::vector&lt;int&gt;</span> indiceDados;   <span class="token-comment">// Índices de los dados [0-4] involucrados en la acción</span>
-    <span class="token-type">bool</span> seRespeta;                 <span class="token-comment">// Indica si la acción es parte de respetar un sobremesa</span>
+    <span class="token-type">Anotacion</span> anotacion;            <span class="token-comment">// Estructura Anotacion asociada</span>
+    <span class="token-type">bool</span> seRespeta;                 <span class="token-comment">// Indica si la acción es parte de respetar una jugada</span>
+    <span class="token-type">std::string</span> accion;             <span class="token-comment">// Tipo de acción ("lanzar", "anotar", "sobre", "nada", "dormida")</span>
 
     <span class="token-comment">// Constructor</span>
-    <span class="token-function">Actuacion</span>(<span class="token-type">std::string</span> acc, <span class="token-type">Anotacion</span> anot, <span class="token-type">std::vector&lt;int&gt;</span> idx, <span class="token-type">bool</span> respeta)
-        : <span class="token-function">accion</span>(acc), <span class="token-function">anotacion</span>(anot), <span class="token-function">indiceDados</span>(idx), <span class="token-function">seRespeta</span>(respeta) {}
+    <span class="token-function">Actuacion</span>(<span class="token-type">std::vector&lt;int&gt;</span> idx, <span class="token-type">Anotacion</span> anot, <span class="token-type">bool</span> respeta, <span class="token-type">std::string</span> acc)
+        : <span class="token-function">indiceDados</span>(idx), <span class="token-function">anotacion</span>(anot), <span class="token-function">seRespeta</span>(respeta), <span class="token-function">accion</span>(acc) {}
 
     <span class="token-type">void</span> <span class="token-function">display</span>() <span class="token-keyword">const</span>;
     <span class="token-type">void</span> <span class="token-function">displayCompacto</span>(<span class="token-type">int</span> indice = -1) <span class="token-keyword">const</span>;
@@ -709,34 +709,34 @@
             <h3>Miembros de la Clase</h3>
             <ul class="member-list">
                 <li class="member-item">
-                    <div class="member-name">accion <span class="member-type">(std::string)</span></div>
-                    <div class="member-desc">
-                        Describe el comportamiento semántico de esta jugada:
-                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--text-secondary);">
-                            <li><code>"lanzar"</code>: El jugador desea volver a tirar los dados indicados en <code>indiceDados</code>.</li>
-                            <li><code>"anotar"</code>: El jugador decide registrar la jugada en su tablero.</li>
-                            <li><code>"sobre"</code>: Acción válida únicamente en el <em>intento 1</em>, donde el jugador anota en la mesa y le pasa los dados al rival para que decida "si respeta" la anotación del sobremesa.</li>
-                            <li><code>"dormida"</code>: Declaración de victoria inmediata (dormida) al obtener 5 dados iguales del mismo valor de una sola tirada.</li>
-                            <li><code>"nada"</code>: Comportamiento nulo o de control en turnos especiales (como segundas pasadas de tiro).</li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="member-item">
-                    <div class="member-name">anotacion <span class="member-type">(Anotacion)</span></div>
-                    <div class="member-desc">
-                        Estructura que describe qué categoría del tablero y cuántos puntos se ven afectados por la acción (mayormente para <code>"anotar"</code>, <code>"sobre"</code> o tachar).
-                    </div>
-                </li>
-                <li class="member-item">
                     <div class="member-name">indiceDados <span class="member-type">(std::vector&lt;int&gt;)</span></div>
                     <div class="member-desc">
                         Vector con valores en el rango <code>[0-4]</code> que indica cuáles dados están involucrados en la acción. En una acción de tipo <code>"lanzar"</code>, este vector especifica exactamente cuáles dados volverá a tirar el motor del juego.
                     </div>
                 </li>
                 <li class="member-item">
+                    <div class="member-name">anotacion <span class="member-type">(Anotacion)</span></div>
+                    <div class="member-desc">
+                        Estructura que describe cuántos puntos y qué categoría del tablero se ven afectados por la acción (mayormente para <code>"anotar"</code>, <code>"sobre"</code> o tachar).
+                    </div>
+                </li>
+                <li class="member-item">
                     <div class="member-name">seRespeta <span class="member-type">(bool)</span></div>
                     <div class="member-desc">
-                        Variable booleana. Si es <code>true</code>, se indica que la tirada actual respeta el juego del rival anterior o una jugada de mano especial. Si es <code>false</code>, no se aplica respeto automático.
+                        Variable booleana. Si es <code>true</code>, se indica que la tirada actual respeta una jugada mayor de mano ya anotada previamente. Si es <code>false</code>, no se aplica respeto automático.
+                    </div>
+                </li>
+                <li class="member-item">
+                    <div class="member-name">accion <span class="member-type">(std::string)</span></div>
+                    <div class="member-desc">
+                        Describe el comportamiento semántico de esta jugada:
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--text-secondary);">
+                            <li><code>"lanzar"</code>: El jugador desea volver a tirar los dados indicados en <code>indiceDados</code>.</li>
+                            <li><code>"anotar"</code>: El jugador decide registrar la jugada en su tablero.</li>
+                            <li><code>"sobre"</code>: Acción válida únicamente en el <em>intento 1</em>, donde el jugador reserva temporalmente una anotación para decidir en el segundo intento si conservarla o mejorarla.</li>
+                            <li><code>"dormida"</code>: Declaración de victoria inmediata (dormida) al obtener 5 dados iguales del mismo valor de una sola tirada.</li>
+                            <li><code>"nada"</code>: Comportamiento nulo o de control en turnos especiales (como segundas pasadas de tiro cuando ya se anotó en el intento 1).</li>
+                        </ul>
                     </div>
                 </li>
             </ul>
@@ -785,17 +785,17 @@
 
 <span class="token-type">int</span> <span class="token-function">main</span>() {
     <span class="token-comment">// 1. Instanciar una anotación directa de Full de Mano (35 puntos)</span>
-    <span class="token-type">Anotacion</span> fullMano = {<span class="token-string">"full"</span>, <span class="token-number">35</span>};
+    <span class="token-type">Anotacion</span> fullMano = {<span class="token-number">35</span>, <span class="token-string">"full"</span>};
 
     <span class="token-comment">// 2. Crear una actuación para anotar el Full en la planilla</span>
-    <span class="token-type">Actuacion</span> accionAnotar(<span class="token-string">"anotar"</span>, fullMano, {}, <span class="token-keyword">false</span>);
+    <span class="token-type">Actuacion</span> accionAnotar({}, fullMano, <span class="token-keyword">false</span>, <span class="token-string">"anotar"</span>);
 
     <span class="token-comment">// 3. Crear una actuación para lanzar los dados en las posiciones 0, 2 y 4</span>
-    <span class="token-type">Anotacion</span> sinAnotar = {<span class="token-string">""</span>, <span class="token-number">-1</span>};
-    <span class="token-type">Actuacion</span> accionLanzar(<span class="token-string">"lanzar"</span>, sinAnotar, {<span class="token-number">0</span>, <span class="token-number">2</span>, <span class="token-number">4</span>}, <span class="token-keyword">false</span>);
+    <span class="token-type">Anotacion</span> sinAnotar = {<span class="token-number">-1</span>, <span class="token-string">""</span>};
+    <span class="token-type">Actuacion</span> accionLanzar({<span class="token-number">0</span>, <span class="token-number">2</span>, <span class="token-number">4</span>}, sinAnotar, <span class="token-keyword">false</span>, <span class="token-string">"lanzar"</span>);
 
     <span class="token-comment">// 4. Crear una actuación para tachar/borrar la categoría "grande"</span>
-    <span class="token-type">Actuacion</span> accionTachar(<span class="token-string">"anotar"</span>, {<span class="token-string">"grande"</span>, <span class="token-number">0</span>}, {}, <span class="token-keyword">false</span>);
+    <span class="token-type">Actuacion</span> accionTachar({}, {<span class="token-number">0</span>, <span class="token-string">"grande"</span>}, <span class="token-keyword">false</span>, <span class="token-string">"anotar"</span>);
 
     <span class="token-keyword">return</span> <span class="token-number">0</span>;
 }</code></pre>
@@ -818,9 +818,9 @@
 <span class="token-keyword">public</span>:
     <span class="token-function">JugadorHeuristico</span>(<span class="token-type">std::string</span> nom) : <span class="token-function">Jugador</span>(nom) {}
 
-    <span class="token-type">int</span> <span class="token-function">jugar</span>(<span class="token-keyword">const</span> <span class="token-type">std::map&lt;std::string, Marcador&gt;</span>&amp; <span class="token-comment">/*marcadores*/</span>,
+    <span class="token-type">int</span> <span class="token-function">jugar</span>(<span class="token-keyword">const</span> <span class="token-type">std::vector&lt;int&gt;</span>&amp; <span class="token-comment">/*dados*/</span>,
               <span class="token-keyword">const</span> <span class="token-type">std::vector&lt;Actuacion&gt;</span>&amp; actuacionesPosibles,
-              <span class="token-keyword">const</span> <span class="token-type">std::vector&lt;int&gt;</span>&amp; <span class="token-comment">/*dados*/</span>,
+              <span class="token-keyword">const</span> <span class="token-type">std::map&lt;std::string, Marcador&gt;</span>&amp; <span class="token-comment">/*marcadores*/</span>,
               <span class="token-keyword">const</span> <span class="token-type">Anotacion</span>&amp; <span class="token-comment">/*resultadoPrevio*/</span>) <span class="token-keyword">override</span> {
         
         <span class="token-comment">// Estrategia heurística básica:</span>
@@ -862,7 +862,7 @@
                         <span class="badge badge-purple">Output de Consola</span>
                     </div>
                     <pre><code><span class="token-comment">// Código ejecutado:</span>
-<span class="token-type">Actuacion</span> act(<span class="token-string">"anotar"</span>, {<span class="token-string">"escalera"</span>, <span class="token-number">25</span>}, {}, <span class="token-keyword">false</span>);
+<span class="token-type">Actuacion</span> act({}, {<span class="token-number">25</span>, <span class="token-string">"escalera"</span>}, <span class="token-keyword">false</span>, <span class="token-string">"anotar"</span>);
 
 <span class="token-type">std::cout</span> &lt;&lt; <span class="token-string">"--- Salida de display() ---"</span> &lt;&lt; <span class="token-type">std::endl</span>;
 act.<span class="token-function">display</span>();
@@ -872,13 +872,13 @@ act.<span class="token-function">displayCompacto</span>(<span class="token-numbe
 
 <span class="token-comment">/* SALIDA GENERADA EN CONSOLA:
 --- Salida de display() ---
-accion: anotar
-anotacion: (escalera, 25)
 indiceDados: []
+anotacion: (25, escalera)
 seRespeta: False
+accion: anotar
 
 --- Salida de displayCompacto(4) ---
-[4](anotar,('escalera', 25), [], False)
+[4]([], (25, 'escalera'), False, anotar)
 */</span></code></pre>
                 </div>
             </div>
@@ -1082,26 +1082,25 @@ seRespeta: False
             let formattedAccion = (accion === 'tachar') ? 'anotar' : accion;
             
             let cppCode = `// 1. Declarar la Anotacion\n`;
-            cppCode += `Anotacion anot = {"${juego}", ${puntos}};\n\n`;
+            cppCode += `Anotacion anot = {${puntos}, "${juego}"};\n\n`;
             cppCode += `// 2. Instanciar la Actuacion\n`;
             cppCode += `Actuacion act(\n`;
-            cppCode += `    "${formattedAccion}",\n`;
-            cppCode += `    anot,\n`;
             cppCode += `    {${accion === 'lanzar' ? diceStr : ''}},\n`;
-            cppCode += `    ${seRespeta ? 'true' : 'false'}\n`;
+            cppCode += `    anot,\n`;
+            cppCode += `    ${seRespeta ? 'true' : 'false'},\n`;
+            cppCode += `    "${formattedAccion}"\n`;
             cppCode += `);`;
             
             document.getElementById('outCppCode').textContent = cppCode;
 
             // 2. Generate display() output simulation
-            let displayOutput = `accion: ${formattedAccion}\n`;
-            displayOutput += `anotacion: (${juego}, ${puntos})\n`;
-            
             let activeDice = (accion === 'lanzar') ? selectedDice : [];
             let diceListOutput = activeDice.join(', ');
             
-            displayOutput += `indiceDados: [${diceListOutput}]\n`;
-            displayOutput += `seRespeta: ${seRespeta ? 'True' : 'False'}`;
+            let displayOutput = `indiceDados: [${diceListOutput}]\n`;
+            displayOutput += `anotacion: (${puntos}, ${juego})\n`;
+            displayOutput += `seRespeta: ${seRespeta ? 'True' : 'False'}\n`;
+            displayOutput += `accion: ${formattedAccion}`;
             
             document.getElementById('outDisplay').textContent = displayOutput;
 
@@ -1113,7 +1112,7 @@ seRespeta: False
             
             let diceListCompact = activeDice.join(',');
             
-            compactOutput += `(${formattedAccion},('${juego}', ${puntos}), [${diceListCompact}], ${seRespeta ? 'True' : 'False'})`;
+            compactOutput += `([${diceListCompact}], (${puntos}, '${juego}'), ${seRespeta ? 'True' : 'False'}, ${formattedAccion})`;
             
             document.getElementById('outDisplayCompacto').textContent = compactOutput;
         }
