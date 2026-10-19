@@ -9,9 +9,9 @@ class JugadorHumano : public Jugador {
 public:
   JugadorHumano(std::string nom = "Humano") : Jugador(nom) {}
 
-  int jugar(const std::map<std::string, Marcador> & /*marcadores*/,
+  int jugar(const std::vector<int> &dados,
             const std::vector<Actuacion> &actuacionesPosibles,
-            const std::vector<int> &dados,
+            const std::map<std::string, Marcador> & /*marcadores*/,
             const Anotacion & /*resultadoPrevio*/) override {
 
     const std::string RESET = "\033[0m";

@@ -81,6 +81,7 @@ public:
   void run(int gamesPerMatch = 10) {
     std::cout << "Starting Tournament with " << creators.size() << " players!"
               << std::endl;
+    std::mutex mtx;
 
     for (int i = 0; i < gamesPerMatch; ++i) {
       std::vector<std::shared_ptr<Jugador>> bots;
@@ -89,13 +90,7 @@ public:
 
       Anotador game(bots, true);
       auto winners = game.hacerJugar();
-
-      for (const auto &w : winners)
-        leaderboard[w].wins++;
-      for (const auto &nome : game.listaJugadores) {
-        leaderboard[nome].totalScore += game.marcadores[nome].suma;
-        leaderboard[nome].gamesPlayed++;
-      }
+      processGame(game, winners, mtx);
     }
   }
 

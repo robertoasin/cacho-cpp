@@ -165,6 +165,12 @@ function updateUI() {
                         <div class="grande-slot">${renderCell(marker, "grande", "GRANDE 1")}</div>
                         <div class="grande-slot">${renderCell(marker, "grande2", "GRANDE 2")}</div>
                     </div>
+                    <div class="grande-area" style="margin-top: 0.5rem;">
+                        <div class="grande-slot" style="grid-column: 1 / -1;">
+                            <span class="cell-label">BONO CHICAS (≥3 dados c/u)</span>
+                            <span class="cell-val ${marker.bonoChicas ? 'highlight-score' : 'not-set'}">${marker.bonoChicas ? '+40' : '-'}</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="total-score">
                     <span>TOTAL</span>

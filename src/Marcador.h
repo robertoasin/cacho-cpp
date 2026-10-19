@@ -13,10 +13,13 @@ public:
   std::map<std::string, int> puntajes;
   bool dormida;
   bool panzaDeOro;
+  bool bonoChicas;
   bool escaleraRespetada;
   bool fullRespetado;
   bool pokerRespetado;
   int suma;
+
+  static constexpr int PUNTOS_BONO_CHICAS = 40;
 
   Marcador() {
     porAnotar = 11;
@@ -28,6 +31,7 @@ public:
     }
     dormida = false;
     panzaDeOro = false;
+    bonoChicas = false;
     escaleraRespetada = false;
     fullRespetado = false;
     pokerRespetado = false;
@@ -42,11 +46,21 @@ public:
     return false;
   }
 
+  bool tieneBonoChicas() const {
+    return puntajes.at("balas") >= 3 && puntajes.at("tontos") >= 6 &&
+           puntajes.at("trenes") >= 9 && puntajes.at("cuadras") >= 12 &&
+           puntajes.at("quinas") >= 15 && puntajes.at("senas") >= 18;
+  }
+
   void anotar(const std::string &juego, int puntos) {
     if (puntajes.count(juego)) {
       puntajes[juego] = puntos;
       porAnotar--;
       suma += puntos;
+      if (!bonoChicas && tieneBonoChicas()) {
+        bonoChicas = true;
+        suma += PUNTOS_BONO_CHICAS;
+      }
     }
   }
 
@@ -76,6 +90,8 @@ public:
               << (dormida ? "True" : "False") << std::endl;
     std::cout << std::left << std::setw(20) << "Panza de oro" << " = "
               << (panzaDeOro ? "True" : "False") << std::endl;
+    std::cout << std::left << std::setw(20) << "bonoChicas" << " = "
+              << (bonoChicas ? "True" : "False") << std::endl;
     std::cout << std::left << std::setw(20) << "escaleraRespetada" << " = "
               << (escaleraRespetada ? "True" : "False") << std::endl;
     std::cout << std::left << std::setw(20) << "fullRespetado" << " = "

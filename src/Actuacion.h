@@ -7,41 +7,41 @@
 #include <utility>
 
 struct Anotacion {
-    std::string juego;
     int puntos;
+    std::string juego;
 };
 
 class Actuacion {
 public:
-    std::string accion;
-    Anotacion anotacion;
     std::vector<int> indiceDados;
+    Anotacion anotacion;
     bool seRespeta;
+    std::string accion;
 
-    Actuacion(std::string acc, Anotacion anot, std::vector<int> idx, bool respeta)
-        : accion(acc), anotacion(anot), indiceDados(idx), seRespeta(respeta) {}
+    Actuacion(std::vector<int> idx, Anotacion anot, bool respeta, std::string acc)
+        : indiceDados(idx), anotacion(anot), seRespeta(respeta), accion(acc) {}
 
     void display() const {
-        std::cout << "accion: " << accion << std::endl;
-        std::cout << "anotacion: (" << anotacion.juego << ", " << anotacion.puntos << ")" << std::endl;
         std::cout << "indiceDados: [";
         for (size_t i = 0; i < indiceDados.size(); ++i) {
             std::cout << indiceDados[i] << (i == indiceDados.size() - 1 ? "" : ", ");
         }
         std::cout << "]" << std::endl;
+        std::cout << "anotacion: (" << anotacion.puntos << ", " << anotacion.juego << ")" << std::endl;
         std::cout << "seRespeta: " << (seRespeta ? "True" : "False") << std::endl;
+        std::cout << "accion: " << accion << std::endl;
     }
 
     void displayCompacto(int indice = -1) const {
         if (indice > -1) {
             std::cout << "[" << indice << "]";
         }
-        std::cout << "(" << accion << ",('" << anotacion.juego << "', " << anotacion.puntos << "), " 
-                  << "[";
+        std::cout << "([";
         for (size_t i = 0; i < indiceDados.size(); ++i) {
             std::cout << indiceDados[i] << (i == indiceDados.size() - 1 ? "" : ",");
         }
-        std::cout << "], " << (seRespeta ? "True" : "False") << ")" << std::endl;
+        std::cout << "], (" << anotacion.puntos << ", '" << anotacion.juego << "'), "
+                  << (seRespeta ? "True" : "False") << ", " << accion << ")" << std::endl;
     }
 };
 

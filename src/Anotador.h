@@ -25,7 +25,7 @@ public:
   std::vector<int> dados = {0, 0, 0, 0, 0};
   std::vector<int> idxDados = {0, 1, 2, 3, 4};
   std::vector<Actuacion> actuacionesPosibles;
-  Anotacion resPrev = {"", -1};
+  Anotacion resPrev = {-1, ""};
   bool yaAn = false;
   int lanzamiento = 0;
   int intento = 1;
@@ -66,7 +66,7 @@ public:
     jugadorActual = nome;
     lanzamiento = 0;
     intento = 1;
-    resPrev = {"", -1};
+    resPrev = {-1, ""};
     yaAn = false;
     idxDados = {0, 1, 2, 3, 4};
     turnoTerminado = false;
@@ -149,7 +149,7 @@ public:
         if ((i >> j) & 1)
           indices.push_back(j);
       }
-      lista.emplace_back("lanzar", Anotacion{"", -1}, indices, false);
+      lista.emplace_back(indices, Anotacion{-1, ""}, false, "lanzar");
     }
     return lista;
   }
@@ -224,46 +224,46 @@ public:
     std::vector<Actuacion> lista;
     if (verificarEscaleraDeMano(dList)) {
       if (!verificarSiYaAnotado("escalera", jogador)) {
-        lista.emplace_back("anotar", Anotacion{"escalera", 25},
-                           std::vector<int>{}, false);
+        lista.emplace_back(std::vector<int>{}, Anotacion{25, "escalera"},
+                           false, "anotar");
         if (puedeSerSobre)
-          lista.emplace_back("sobre", Anotacion{"escalera", 25},
-                             std::vector<int>{}, false);
+          lista.emplace_back(std::vector<int>{}, Anotacion{25, "escalera"},
+                             false, "sobre");
       } else if (marcadores[jogador].yaAnotado("escalera") &&
                  !marcadores[jogador].escaleraRespetada && esPrimerTiro) {
-        lista.emplace_back("lanzar", Anotacion{"escalera", -1},
-                           std::vector<int>{0, 1, 2, 3, 4}, true);
+        lista.emplace_back(std::vector<int>{0, 1, 2, 3, 4},
+                           Anotacion{-1, "escalera"}, true, "lanzar");
       }
     }
     if (verificarFullDeMano(dList)) {
       if (!verificarSiYaAnotado("full", jogador)) {
-        lista.emplace_back("anotar", Anotacion{"full", 35}, std::vector<int>{},
-                           false);
+        lista.emplace_back(std::vector<int>{}, Anotacion{35, "full"},
+                           false, "anotar");
         if (puedeSerSobre)
-          lista.emplace_back("sobre", Anotacion{"full", 35}, std::vector<int>{},
-                             false);
+          lista.emplace_back(std::vector<int>{}, Anotacion{35, "full"},
+                             false, "sobre");
       } else if (marcadores[jogador].yaAnotado("full") &&
                  !marcadores[jogador].fullRespetado && esPrimerTiro) {
-        lista.emplace_back("lanzar", Anotacion{"full", -1},
-                           std::vector<int>{0, 1, 2, 3, 4}, true);
+        lista.emplace_back(std::vector<int>{0, 1, 2, 3, 4},
+                           Anotacion{-1, "full"}, true, "lanzar");
       }
     }
     if (verificarPokerDeMano(dList)) {
       if (!verificarSiYaAnotado("poker", jogador)) {
-        lista.emplace_back("anotar", Anotacion{"poker", 45}, std::vector<int>{},
-                           false);
+        lista.emplace_back(std::vector<int>{}, Anotacion{45, "poker"},
+                           false, "anotar");
         if (puedeSerSobre)
-          lista.emplace_back("sobre", Anotacion{"poker", 45},
-                             std::vector<int>{}, false);
+          lista.emplace_back(std::vector<int>{}, Anotacion{45, "poker"},
+                             false, "sobre");
       } else if (marcadores[jogador].yaAnotado("poker") &&
                  !marcadores[jogador].pokerRespetado && esPrimerTiro) {
-        lista.emplace_back("lanzar", Anotacion{"poker", -1},
-                           std::vector<int>{0, 1, 2, 3, 4}, true);
+        lista.emplace_back(std::vector<int>{0, 1, 2, 3, 4},
+                           Anotacion{-1, "poker"}, true, "lanzar");
       }
     }
     if (verificarDormida(dList)) {
-      lista.emplace_back("dormida", Anotacion{"", -1}, std::vector<int>{},
-                         false);
+      lista.emplace_back(std::vector<int>{}, Anotacion{-1, ""},
+                         false, "dormida");
     }
     return lista;
   }
@@ -414,11 +414,13 @@ public:
       if (!verificarSiYaAnotado(juegosPosibles[i - 1], jogador)) {
         int res = verificarSuma(i, dList);
         if (res > 0 || inclBorres) {
-          lista.emplace_back("anotar", Anotacion{juegosPosibles[i - 1], res},
-                             std::vector<int>{}, false);
+          lista.emplace_back(std::vector<int>{},
+                             Anotacion{res, juegosPosibles[i - 1]}, false,
+                             "anotar");
           if (puedeSerSobre)
-            lista.emplace_back("sobre", Anotacion{juegosPosibles[i - 1], res},
-                               std::vector<int>{}, false);
+            lista.emplace_back(std::vector<int>{},
+                               Anotacion{res, juegosPosibles[i - 1]}, false,
+                               "sobre");
         }
       }
     }
@@ -427,17 +429,17 @@ public:
                          int pts) {
       if (!verificarSiYaAnotado(name, jogador)) {
         if ((this->*func)(dList)) {
-          lista.emplace_back("anotar", Anotacion{name, pts}, std::vector<int>{},
-                             false);
+          lista.emplace_back(std::vector<int>{}, Anotacion{pts, name}, false,
+                             "anotar");
           if (puedeSerSobre)
-            lista.emplace_back("sobre", Anotacion{name, pts},
-                               std::vector<int>{}, false);
+            lista.emplace_back(std::vector<int>{}, Anotacion{pts, name}, false,
+                               "sobre");
         } else if (inclBorres) {
-          lista.emplace_back("anotar", Anotacion{name, 0}, std::vector<int>{},
-                             false);
+          lista.emplace_back(std::vector<int>{}, Anotacion{0, name}, false,
+                             "anotar");
           if (puedeSerSobre)
-            lista.emplace_back("sobre", Anotacion{name, 0}, std::vector<int>{},
-                               false);
+            lista.emplace_back(std::vector<int>{}, Anotacion{0, name}, false,
+                               "sobre");
         }
       }
     };
@@ -459,8 +461,8 @@ public:
 
     if (lanzamiento == 0) {
       // First roll of the turn
-      lista.emplace_back("lanzar", Anotacion{"", -1},
-                         std::vector<int>{0, 1, 2, 3, 4}, false);
+      lista.emplace_back(std::vector<int>{0, 1, 2, 3, 4}, Anotacion{-1, ""},
+                         false, "lanzar");
       return lista;
     }
 
@@ -472,12 +474,12 @@ public:
     } else {
       if (intento == 2) {
         if (yaAn)
-          lista.emplace_back("nada", Anotacion{"", -1}, std::vector<int>{},
-                             false);
+          lista.emplace_back(std::vector<int>{}, Anotacion{-1, ""}, false,
+                             "nada");
         else if (resPrev.puntos != -1) {
           Anotacion resClarified = resPrev;
           resClarified.juego += " (de la 1ra mano)";
-          lista.emplace_back("anotar", resClarified, std::vector<int>{}, false);
+          lista.emplace_back(std::vector<int>{}, resClarified, false, "anotar");
         }
       }
       if (indices.size() == 5) {
@@ -503,7 +505,9 @@ public:
       if (lanzamiento == 0) {
         realizarLanzamiento();
       }
-      int choice = j->jugar(marcadores, actuacionesPosibles, dados, resPrev);
+      j->intento = intento;
+      j->lanzamiento = lanzamiento;
+      int choice = j->jugar(dados, actuacionesPosibles, marcadores, resPrev);
       ejecutarAccion(choice);
     }
     return marcadores[nome].tieneAlalay();

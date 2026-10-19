@@ -37,9 +37,9 @@ public:
         lanzamiento--;
     }
 
-    virtual int jugar(const std::map<std::string, Marcador>& marcadores,
+    virtual int jugar(const std::vector<int>& dados,
                       const std::vector<Actuacion>& actuacionesPosibles,
-                      const std::vector<int>& dados,
+                      const std::map<std::string, Marcador>& marcadores,
                       const Anotacion& resultadoPrevio) = 0;
 };
 

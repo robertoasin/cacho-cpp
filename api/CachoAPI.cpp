@@ -60,6 +60,7 @@ crow::json::wvalue state_to_json(const GameState &state) {
     }
     m["suma"] = marker.suma;
     m["dormida"] = marker.dormida;
+    m["bonoChicas"] = marker.bonoChicas;
     m["alalay"] = marker.tieneAlalay();
     marcadores_json[name] = std::move(m);
   }
