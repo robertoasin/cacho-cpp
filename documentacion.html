@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentación de Actuacion y Anotacion - Cacho C++</title>
+    <title>Especificaciones y Documentación - Cacho C++ (Semestre 2026-2)</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,6 +27,7 @@
             --accent-cyan: #06b6d4;
             --accent-emerald: #10b981;
             --accent-rose: #f43f5e;
+            --accent-amber: #f59e0b;
             --code-bg: #1e293b;
             --code-token-keyword: #ff79c6;
             --code-token-type: #8be9fd;
@@ -50,6 +51,7 @@
             --accent-cyan: #0891b2;
             --accent-emerald: #059669;
             --accent-rose: #e11d48;
+            --accent-amber: #d97706;
             --code-bg: #0f172a;
             --transition-speed: 0.3s;
         }
@@ -82,8 +84,9 @@
             left: 0;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.5rem;
             z-index: 100;
+            overflow-y: auto;
             transition: background-color var(--transition-speed), border-color var(--transition-speed);
         }
 
@@ -92,7 +95,7 @@
             align-items: center;
             gap: 0.75rem;
             font-weight: 800;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--text-primary);
             letter-spacing: -0.025em;
         }
@@ -102,22 +105,37 @@
             text-shadow: 0 0 12px var(--accent-purple);
         }
 
+        .semester-pill {
+            display: inline-block;
+            background: var(--accent-purple-glow);
+            color: var(--accent-purple);
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            align-self: flex-start;
+        }
+
         .nav-links {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.35rem;
         }
 
         .nav-links a {
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            padding: 0.75rem 1rem;
+            padding: 0.65rem 0.9rem;
             color: var(--text-secondary);
             text-decoration: none;
             border-radius: 0.75rem;
             font-weight: 500;
+            font-size: 0.95rem;
             transition: all 0.2s ease;
         }
 
@@ -229,7 +247,7 @@
                 width: 70px;
                 padding: 2rem 0.5rem;
             }
-            aside .logo-area span, aside .nav-links span {
+            aside .logo-area span, aside .nav-links span, aside .semester-pill {
                 display: none;
             }
             aside .nav-links a {
@@ -269,6 +287,34 @@
         .card-purple h3 i { color: var(--accent-purple); }
         .card-cyan h3 i { color: var(--accent-cyan); }
         .card-emerald h3 i { color: var(--accent-emerald); }
+
+        /* Tables */
+        .rules-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--card-bg);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+        }
+
+        .rules-table th, .rules-table td {
+            padding: 0.9rem 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid var(--card-border);
+            font-size: 0.95rem;
+        }
+
+        .rules-table th {
+            background: rgba(139, 92, 246, 0.12);
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .rules-table td {
+            color: var(--text-secondary);
+        }
 
         /* Struct/Class definitions list */
         .member-list {
@@ -320,6 +366,7 @@
         .badge-purple { background-color: var(--accent-purple-glow); color: #c084fc; border: 1px solid rgba(139, 92, 246, 0.3); }
         .badge-cyan { background-color: rgba(6, 182, 212, 0.1); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3); }
         .badge-emerald { background-color: rgba(16, 185, 129, 0.1); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-amber { background-color: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); }
 
         /* Code Blocks styling */
         .code-container {
@@ -367,6 +414,14 @@
             font-size: 0.9rem;
             line-height: 1.5;
             color: #f8f8f2;
+        }
+
+        p code, li code, td code {
+            background: rgba(139, 92, 246, 0.12);
+            color: var(--accent-cyan);
+            padding: 0.15rem 0.4rem;
+            border-radius: 0.3rem;
+            font-size: 0.85em;
         }
 
         /* Syntax Highlighting Classes */
@@ -520,6 +575,13 @@
         }
         .alert-info i { color: var(--accent-cyan); margin-right: 0.5rem; }
 
+        .alert-emerald {
+            background-color: rgba(16, 185, 129, 0.08);
+            border-color: var(--accent-emerald);
+            color: var(--text-primary);
+        }
+        .alert-emerald i { color: var(--accent-emerald); margin-right: 0.5rem; }
+
         .alert-warning {
             background-color: rgba(244, 63, 94, 0.08);
             border-color: var(--accent-rose);
@@ -533,6 +595,7 @@
             gap: 0.5rem;
             border-bottom: 1px solid var(--card-border);
             margin-bottom: 1rem;
+            flex-wrap: wrap;
         }
 
         .tab-btn {
@@ -584,10 +647,14 @@
             <i class="fa-solid fa-dice-d6"></i>
             <span>Cacho C++ API</span>
         </div>
+        <span class="semester-pill">Edición Semestre 2026-2</span>
         <ul class="nav-links">
-            <li class="active"><a href="#introduccion"><i class="fa-solid fa-book-open"></i> <span>Introducción</span></a></li>
-            <li><a href="#anotacion"><i class="fa-solid fa-circle-info"></i> <span>Anotación</span></a></li>
-            <li><a href="#actuacion"><i class="fa-solid fa-gears"></i> <span>Actuación</span></a></li>
+            <li class="active"><a href="#repositorio"><i class="fa-brands fa-git-alt"></i> <span>Repositorio y Uso</span></a></li>
+            <li><a href="#reglas"><i class="fa-solid fa-trophy"></i> <span>Reglas y Bono Chicas</span></a></li>
+            <li><a href="#jugador"><i class="fa-solid fa-robot"></i> <span>Clase Jugador</span></a></li>
+            <li><a href="#marcador"><i class="fa-solid fa-table-list"></i> <span>Clase Marcador</span></a></li>
+            <li><a href="#anotacion"><i class="fa-solid fa-circle-info"></i> <span>Estructura Anotación</span></a></li>
+            <li><a href="#actuacion"><i class="fa-solid fa-gears"></i> <span>Clase Actuación</span></a></li>
             <li><a href="#ejemplos"><i class="fa-solid fa-code"></i> <span>Ejemplos de Uso</span></a></li>
             <li><a href="#playground"><i class="fa-solid fa-flask-vial"></i> <span>Playground Interactivo</span></a></li>
         </ul>
@@ -597,39 +664,257 @@
     <main>
         <header>
             <div class="header-title">
-                <h1>Documentación Oficial</h1>
-                <p>Estructuras y clases del motor del juego Cacho Alalay (C++ / Cacho Engine)</p>
+                <h1>Documentación Oficial (Semestre 2026-2)</h1>
+                <p>Especificaciones de reglas, estructuras e interfaz para el desarrollo de agentes en Cacho C++</p>
             </div>
             <button class="theme-toggle" id="themeToggleBtn" aria-label="Cambiar tema">
                 <i class="fa-solid fa-moon" id="themeIcon"></i>
             </button>
         </header>
 
-        <!-- INTRODUCCION -->
-        <section id="introduccion">
-            <h2><i class="fa-solid fa-book-open"></i> Introducción al Modelo</h2>
+        <!-- REPOSITORIO Y COMPILACION -->
+        <section id="repositorio">
+            <h2><i class="fa-brands fa-git-alt"></i> Acceso al Repositorio e Instalación</h2>
             <p>
-                En el juego de <strong>Cacho</strong> (o Alalay), la toma de decisiones gira en torno a qué dados conservar, qué dados volver a lanzar y dónde anotar los resultados obtenidos. Para modelar este proceso de forma estructurada, el simulador del juego en C++ utiliza principalmente dos construcciones fundamentales definidas en <a href="file:///media/rasin/OS/GDrive/Proyectos%20y%20Servicios/cacho-python/cacho-cpp/src/Actuacion.h">Actuacion.h</a>:
+                Para el presente semestre (<strong>2026-2</strong>), el código oficial se encuentra en la rama <code>semestre-2026-2</code> del repositorio <a href="https://github.com/robertoasin/cacho-cpp/tree/semestre-2026-2" target="_blank" style="color: var(--accent-cyan);">robertoasin/cacho-cpp</a>. Es indispensable trabajar sobre esta rama, ya que tanto la firma de <code>Jugador::jugar</code> como el orden de los atributos de <code>Actuacion</code> / <code>Anotacion</code> y las reglas de puntuación han sido actualizados.
             </p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="badge badge-emerald">Terminal</span>
+                    <button class="copy-btn" onclick="copyCode('codeClone')"><i class="fa-solid fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code id="codeClone"><span class="token-comment"># 1. Clonar directamente la rama del semestre 2026-2</span>
+git clone -b semestre-2026-2 --single-branch https://github.com/robertoasin/cacho-cpp.git
+cd cacho-cpp
+
+<span class="token-comment"># 2. Compilar y ejecutar la simulación en consola</span>
+cd src
+make
+./cacho</code></pre>
+            </div>
+
+            <div class="alert alert-warning">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <strong>Importante sobre versiones previas:</strong> Si ya habías clonado el repositorio anteriormente, asegúrate de cambiar a la rama correcta ejecutando <code>git fetch origin &amp;&amp; git checkout semestre-2026-2</code>. Los jugadores implementados con la interfaz del semestre anterior no compilarán ni funcionarán en esta versión.
+            </div>
+        </section>
+
+        <!-- REGLAS DEL JUEGO Y BONO DE CHICAS -->
+        <section id="reglas">
+            <h2><i class="fa-solid fa-trophy"></i> Reglas del Juego y Novedades 2026-2</h2>
+            <p>
+                El simulador implementa las reglas de competencia <strong>Alalay</strong> de Cacho con una nueva condición estratégica para este semestre: el <strong>Bono de Chicas (+40 puntos)</strong>.
+            </p>
+
             <div class="grid-2">
                 <div class="card card-purple">
-                    <h3><i class="fa-solid fa-list-check"></i> Anotacion</h3>
+                    <h3><i class="fa-solid fa-dice"></i> Dinámica del Turno (2 Intentos)</h3>
                     <p>
-                        Representa el resultado concreto de haber elegido una de las categorías del tablero del Cacho. Define el tipo de juego seleccionado y los puntos asociados.
+                        Cada turno de un jugador consta de hasta <strong>2 intentos</strong> independientes, y cada intento permite hasta <strong>2 lanzamientos</strong>:
                     </p>
-                    <span class="badge badge-purple">Estructura Simple</span>
+                    <ul style="margin-left: 1.25rem; color: var(--text-secondary); line-height: 1.6;">
+                        <li>En el <strong>Intento 1</strong>, el jugador puede anotar directamente en su marcador (<code>"anotar"</code>) o reservar su jugada sobre la mesa (<code>"sobre"</code>).</li>
+                        <li>En el <strong>Intento 2</strong>, si ya anotó en el Intento 1, puede anotar una segunda jugada o pasar (<code>"nada"</code>). Si dejó una jugada <code>"sobre"</code>, debe elegir entre confirmar esa jugada reservada (<code>" (de la 1ra mano)"</code>) o anotar lo obtenido en el segundo intento.</li>
+                        <li>En el segundo lanzamiento de cada intento se aplican automáticamente hasta <strong>2 vuelques</strong> de dados a su cara opuesta (suma 7: <code>1&harr;6</code>, <code>2&harr;5</code>, <code>3&harr;4</code>).</li>
+                    </ul>
                 </div>
-                <div class="card card-cyan">
-                    <h3><i class="fa-solid fa-play"></i> Actuacion</h3>
+
+                <div class="card card-emerald">
+                    <h3><i class="fa-solid fa-star"></i> Nuevo: Bono de Chicas (+40 pts)</h3>
                     <p>
-                        Representa una acción completa o jugada realizable en el turno de un jugador. Esto incluye decisiones tales como lanzar ciertos dados, anotar puntos en un casillero, tachar un casillero ("sobre" o directo), o declarar una dormida.
+                        Para fomentar mayor variedad de estrategias entre buscar jugadas mayores (Grandes/Póker) o consolidar la parte superior del tablero, se incorpora el <strong>Bono de Chicas</strong>:
                     </p>
-                    <span class="badge badge-cyan">Clase con Comportamiento</span>
+                    <div class="alert alert-emerald" style="margin: 1rem 0;">
+                        <i class="fa-solid fa-award"></i>
+                        Si un jugador logra anotar <strong>al menos 3 dados en cada una de las 6 chicas</strong>:
+                        <br><code>balas &ge; 3</code>, <code>tontos &ge; 6</code>, <code>trenes &ge; 9</code>, <code>cuadras &ge; 12</code>, <code>quinas &ge; 15</code> y <code>senas &ge; 18</code>,
+                        <br>recibe automáticamente <strong>+40 puntos adicionales</strong> en su puntaje total (<code>marcador.bonoChicas = true</code>).
+                    </div>
+                    <span class="badge badge-emerald">Novedad Semestre 2026-2</span>
                 </div>
             </div>
+
+            <h3>Tabla de Categorías y Puntajes</h3>
+            <table class="rules-table">
+                <thead>
+                    <tr>
+                        <th>Categoría (<code>juego</code>)</th>
+                        <th>Tipo</th>
+                        <th>Puntaje de Mano (1er tiro)</th>
+                        <th>Puntaje con Huevo / Vuelque (2do tiro)</th>
+                        <th>Requisito para Bono Chicas / Alalay</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>"balas"</code> (1s)</td>
+                        <td>Chica</td>
+                        <td>1 a 4 pts (5 iguales = 4 pts o Dormida)</td>
+                        <td>Suma de 1s (máx. 2 vuelques de 6&rarr;1, tope 4 pts)</td>
+                        <td><strong>&ge; 3 pts</strong> para Bono Chicas (4 pts para Alalay)</td>
+                    </tr>
+                    <tr>
+                        <td><code>"tontos"</code> (2s)</td>
+                        <td>Chica</td>
+                        <td>2 a 8 pts</td>
+                        <td>Suma de 2s (máx. 2 vuelques de 5&rarr;2, tope 8 pts)</td>
+                        <td><strong>&ge; 6 pts</strong> para Bono Chicas (8 pts para Alalay)</td>
+                    </tr>
+                    <tr>
+                        <td><code>"trenes"</code> (3s)</td>
+                        <td>Chica</td>
+                        <td>3 a 12 pts</td>
+                        <td>Suma de 3s (máx. 2 vuelques de 4&rarr;3, tope 12 pts)</td>
+                        <td><strong>&ge; 9 pts</strong> para Bono Chicas (12 pts para Alalay)</td>
+                    </tr>
+                    <tr>
+                        <td><code>"cuadras"</code> (4s)</td>
+                        <td>Chica</td>
+                        <td>4 a 16 pts</td>
+                        <td>Suma de 4s (máx. 2 vuelques de 3&rarr;4, tope 16 pts)</td>
+                        <td><strong>&ge; 12 pts</strong> para Bono Chicas (16 pts para Alalay)</td>
+                    </tr>
+                    <tr>
+                        <td><code>"quinas"</code> (5s)</td>
+                        <td>Chica</td>
+                        <td>5 a 20 pts</td>
+                        <td>Suma de 5s (máx. 2 vuelques de 2&rarr;5, tope 20 pts)</td>
+                        <td><strong>&ge; 15 pts</strong> para Bono Chicas (20 pts para Alalay)</td>
+                    </tr>
+                    <tr>
+                        <td><code>"senas"</code> (6s)</td>
+                        <td>Chica</td>
+                        <td>6 a 24 pts</td>
+                        <td>Suma de 6s (máx. 2 vuelques de 1&rarr;6, tope 24 pts)</td>
+                        <td><strong>&ge; 18 pts</strong> para Bono Chicas (24 pts para Alalay)</td>
+                    </tr>
+                    <tr>
+                        <td><code>"escalera"</code></td>
+                        <td>Mayor</td>
+                        <td><strong>25 pts</strong> (1-2-3-4-5, 2-3-4-5-6 o 1-3-4-5-6)</td>
+                        <td><strong>20 pts</strong> (formada con vuelques)</td>
+                        <td>25 pts (de mano) cuenta para Alalay</td>
+                    </tr>
+                    <tr>
+                        <td><code>"full"</code></td>
+                        <td>Mayor</td>
+                        <td><strong>35 pts</strong> (3 iguales + 2 iguales de mano)</td>
+                        <td><strong>30 pts</strong> (formado con vuelques)</td>
+                        <td>35 pts (de mano) cuenta para Alalay</td>
+                    </tr>
+                    <tr>
+                        <td><code>"poker"</code></td>
+                        <td>Mayor</td>
+                        <td><strong>45 pts</strong> (4 iguales de mano)</td>
+                        <td><strong>40 pts</strong> (formado con vuelques)</td>
+                        <td>45 pts (de mano) cuenta para Alalay</td>
+                    </tr>
+                    <tr>
+                        <td><code>"grande"</code> / <code>"grande2"</code></td>
+                        <td>Mayor</td>
+                        <td><strong>50 pts</strong> (o Victoria por <code>"dormida"</code>)</td>
+                        <td><strong>50 pts</strong> (5 iguales usando hasta 2 vuelques)</td>
+                        <td>Ambas en 50 pts requeridas para Alalay</td>
+                    </tr>
+                </tbody>
+            </table>
+
             <div class="alert alert-info">
-                <i class="fa-solid fa-circle-info"></i>
-                <strong>Contexto del Cacho:</strong> Cada turno de un jugador consiste en hasta dos intentos independientes. En el primer intento del turno, un jugador puede anotar directamente una jugada, dejarla "sobre" la mesa para meter presión al siguiente jugador, o volver a lanzar algunos dados.
+                <i class="fa-solid fa-bolt"></i>
+                <strong>Victorias Instantáneas y "Se Respeta":</strong>
+                <ul style="margin-left: 1.5rem; margin-top: 0.4rem;">
+                    <li><strong>Dormida (<code>accion == "dormida"</code>):</strong> 5 dados exactamente iguales sin volcar en un tiro de 5 dados gana la partida automáticamente.</li>
+                    <li><strong>Alalay (<code>marcador.tieneAlalay()</code>):</strong> Tener las 2 Grandes anotadas (50 y 50) junto con las 3 Mayores de mano (25, 35, 45) <em>o bien</em> las 6 Chicas con 4 dados (4, 8, 12, 16, 20, 24) otorga victoria inmediata.</li>
+                    <li><strong>Se Respeta (<code>seRespeta == true</code>):</strong> Si en el primer tiro obtienes de mano una jugada mayor (<code>escalera</code>, <code>full</code> o <code>poker</code>) que ya tienes anotada y aún no has respetado en la partida, se habilita una acción <code>"lanzar"</code> los 5 dados con <code>seRespeta = true</code> que no consume tu lanzamiento de mano.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CLASE JUGADOR -->
+        <section id="jugador">
+            <h2><i class="fa-solid fa-robot"></i> Clase Base Jugador (Interfaz del Bot)</h2>
+            <p>
+                Para crear un agente o bot competidor, debes heredar de la clase abstracta <code>Jugador</code> definida en <code>src/Jugador.h</code> e implementar el método virtual puro <code>jugar(...)</code>. Nota el <strong>nuevo orden de los parámetros</strong> para el semestre 2026-2:
+            </p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="badge badge-purple">src/Jugador.h</span>
+                    <button class="copy-btn" onclick="copyCode('codeJugadorH')"><i class="fa-solid fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code id="codeJugadorH"><span class="token-keyword">class</span> <span class="token-type">Jugador</span> {
+<span class="token-keyword">public</span>:
+    <span class="token-type">std::string</span> nombre;
+    <span class="token-type">int</span> intento;       <span class="token-comment">// Intento actual dentro del turno (1 o 2)</span>
+    <span class="token-type">int</span> turno;         <span class="token-comment">// Número de turno actual</span>
+    <span class="token-type">int</span> lanzamiento;   <span class="token-comment">// Lanzamiento actual dentro del intento (1 o 2)</span>
+
+    <span class="token-function">Jugador</span>(<span class="token-type">std::string</span> nom = <span class="token-string">"generico"</span>) 
+        : <span class="token-function">nombre</span>(nom), <span class="token-function">intento</span>(<span class="token-number">0</span>), <span class="token-function">turno</span>(<span class="token-number">0</span>), <span class="token-function">lanzamiento</span>(<span class="token-number">0</span>) {}
+
+    <span class="token-keyword">virtual</span> ~<span class="token-function">Jugador</span>() = <span class="token-keyword">default</span>;
+
+    <span class="token-comment">// Método principal que debe implementar cada estudiante (Orden 2026-2):</span>
+    <span class="token-keyword">virtual</span> <span class="token-type">int</span> <span class="token-function">jugar</span>(<span class="token-keyword">const</span> <span class="token-type">std::vector&lt;int&gt;</span>&amp; dados,
+                      <span class="token-keyword">const</span> <span class="token-type">std::vector&lt;Actuacion&gt;</span>&amp; actuacionesPosibles,
+                      <span class="token-keyword">const</span> <span class="token-type">std::map&lt;std::string, Marcador&gt;</span>&amp; marcadores,
+                      <span class="token-keyword">const</span> <span class="token-type">Anotacion</span>&amp; resultadoPrevio) = <span class="token-number">0</span>;
+};</code></pre>
+            </div>
+
+            <h3>Parámetros de <code>Jugador::jugar</code></h3>
+            <ul class="member-list">
+                <li class="member-item">
+                    <div class="member-name">1. dados <span class="member-type">(const std::vector&lt;int&gt;&amp;)</span></div>
+                    <div class="member-desc">Vector de 5 enteros (valores del <code>1</code> al <code>6</code>) con las caras actuales de los 5 dados en la mesa.</div>
+                </li>
+                <li class="member-item">
+                    <div class="member-name">2. actuacionesPosibles <span class="member-type">(const std::vector&lt;Actuacion&gt;&amp;)</span></div>
+                    <div class="member-desc">Lista de todas las acciones legales disponibles en el estado actual. Tu método <code>jugar</code> debe retornar un índice entero válido entre <code>0</code> y <code>actuacionesPosibles.size() - 1</code>.</div>
+                </li>
+                <li class="member-item">
+                    <div class="member-name">3. marcadores <span class="member-type">(const std::map&lt;std::string, Marcador&gt;&amp;)</span></div>
+                    <div class="member-desc">Diccionario con las planillas de todos los jugadores de la partida. Puedes consultar tu propio marcador mediante <code>marcadores.at(this-&gt;nombre)</code> y también inspeccionar el puntaje de tus rivales.</div>
+                </li>
+                <li class="member-item">
+                    <div class="member-name">4. resultadoPrevio <span class="member-type">(const Anotacion&amp;)</span></div>
+                    <div class="member-desc">Si en el Intento 1 elegiste la acción <code>"sobre"</code>, en el Intento 2 este parámetro contiene la <code>Anotacion</code> reservada (en caso contrario, <code>resultadoPrevio.puntos == -1</code>).</div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- CLASE MARCADOR -->
+        <section id="marcador">
+            <h2><i class="fa-solid fa-table-list"></i> Clase Marcador</h2>
+            <p>
+                Definida en <code>src/Marcador.h</code>, representa la planilla de puntuaciones de un jugador, incluyendo el estado del nuevo <strong>Bono de Chicas (+40 pts)</strong>.
+            </p>
+
+            <div class="code-container">
+                <div class="code-header">
+                    <span class="badge badge-purple">src/Marcador.h</span>
+                    <button class="copy-btn" onclick="copyCode('codeMarcador')"><i class="fa-solid fa-copy"></i> Copiar</button>
+                </div>
+                <pre><code id="codeMarcador"><span class="token-keyword">class</span> <span class="token-type">Marcador</span> {
+<span class="token-keyword">public</span>:
+    <span class="token-type">int</span> porAnotar;                         <span class="token-comment">// Casilleros restantes por llenar (inicia en 11)</span>
+    <span class="token-type">std::map&lt;std::string, int&gt;</span> puntajes;   <span class="token-comment">// Mapa categoría -> puntos (-1 si no está anotada)</span>
+    <span class="token-type">bool</span> dormida;
+    <span class="token-type">bool</span> panzaDeOro;
+    <span class="token-type">bool</span> bonoChicas;                       <span class="token-comment">// true cuando se activó el Bono de Chicas (+40 pts)</span>
+    <span class="token-type">bool</span> escaleraRespetada;
+    <span class="token-type">bool</span> fullRespetado;
+    <span class="token-type">bool</span> pokerRespetado;
+    <span class="token-type">int</span> suma;                              <span class="token-comment">// Puntaje total acumulado (incluye +40 si bonoChicas == true)</span>
+
+    <span class="token-keyword">static</span> <span class="token-keyword">constexpr</span> <span class="token-type">int</span> PUNTOS_BONO_CHICAS = <span class="token-number">40</span>;
+
+    <span class="token-type">bool</span> <span class="token-function">yaAnotado</span>(<span class="token-keyword">const</span> <span class="token-type">std::string</span> &amp;juego) <span class="token-keyword">const</span>;
+    <span class="token-type">bool</span> <span class="token-function">tieneBonoChicas</span>() <span class="token-keyword">const</span>;
+    <span class="token-type">bool</span> <span class="token-function">tieneAlalay</span>() <span class="token-keyword">const</span>;
+    <span class="token-type">bool</span> <span class="token-function">marcadorIncompleto</span>() <span class="token-keyword">const</span>;
+};</code></pre>
             </div>
         </section>
 
@@ -637,33 +922,22 @@
         <section id="anotacion">
             <h2><i class="fa-solid fa-circle-info"></i> Estructura Anotacion</h2>
             <p>
-                <code>Anotacion</code> es un <code>struct</code> plano que describe un puntaje asignado (o a asignar) en un determinado casillero de la cartilla o marcador del jugador.
+                <code>Anotacion</code> es un <code>struct</code> plano que describe un puntaje asignado (o a asignar) en un determinado casillero de la cartilla o marcador del jugador. Nota que en la versión <strong>2026-2</strong> el atributo <code>puntos</code> se declara <strong>antes</strong> que <code>juego</code>:
             </p>
 
             <div class="code-container">
                 <div class="code-header">
-                    <span class="badge badge-purple">Anotacion.h</span>
+                    <span class="badge badge-purple">src/Actuacion.h</span>
                     <button class="copy-btn" onclick="copyCode('codeAnotacion')"><i class="fa-solid fa-copy"></i> Copiar</button>
                 </div>
                 <pre><code id="codeAnotacion"><span class="token-keyword">struct</span> <span class="token-type">Anotacion</span> {
-    <span class="token-type">std::string</span> juego;  <span class="token-comment">// Nombre de la categoría de puntaje</span>
     <span class="token-type">int</span> puntos;         <span class="token-comment">// Puntos obtenidos (-1 indica no aplica, 0 indica borrado)</span>
+    <span class="token-type">std::string</span> juego;  <span class="token-comment">// Nombre de la categoría de puntaje</span>
 };</code></pre>
             </div>
 
             <h3>Miembros de la Estructura</h3>
             <ul class="member-list">
-                <li class="member-item">
-                    <div class="member-name">juego <span class="member-type">(std::string)</span></div>
-                    <div class="member-desc">
-                        Identificador de la jugada del tablero. Los valores posibles son:
-                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--text-secondary);">
-                            <li><strong>Chicas:</strong> <code>"balas"</code> (unos), <code>"tontos"</code> (doses), <code>"trenes"</code> (treses), <code>"cuadras"</code> (cuatros), <code>"quinas"</code> (cincos), <code>"senas"</code> (seises).</li>
-                            <li><strong>Mayores:</strong> <code>"escalera"</code>, <code>"full"</code>, <code>"poker"</code>, <code>"grande"</code> (primer grande), <code>"grande2"</code> (segunda grande).</li>
-                            <li><strong>Especiales:</strong> Categorías temporales con aclaraciones como <code>"juego_name (de la 1ra mano)"</code>.</li>
-                        </ul>
-                    </div>
-                </li>
                 <li class="member-item">
                     <div class="member-name">puntos <span class="member-type">(int)</span></div>
                     <div class="member-desc">
@@ -675,6 +949,17 @@
                         </ul>
                     </div>
                 </li>
+                <li class="member-item">
+                    <div class="member-name">juego <span class="member-type">(std::string)</span></div>
+                    <div class="member-desc">
+                        Identificador de la jugada del tablero. Los valores posibles son:
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--text-secondary);">
+                            <li><strong>Chicas:</strong> <code>"balas"</code> (unos), <code>"tontos"</code> (doses), <code>"trenes"</code> (treses), <code>"cuadras"</code> (cuatros), <code>"quinas"</code> (cincos), <code>"senas"</code> (seises). Si todas alcanzan al menos 3 dados, se activa el <strong>Bono de Chicas (+40 pts)</strong>.</li>
+                            <li><strong>Mayores:</strong> <code>"escalera"</code>, <code>"full"</code>, <code>"poker"</code>, <code>"grande"</code> (primer grande), <code>"grande2"</code> (segunda grande).</li>
+                            <li><strong>Especiales:</strong> Categorías temporales con aclaraciones como <code>"juego_name (de la 1ra mano)"</code>.</li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </section>
 
@@ -682,24 +967,24 @@
         <section id="actuacion">
             <h2><i class="fa-solid fa-gears"></i> Clase Actuacion</h2>
             <p>
-                La clase <code>Actuacion</code> empaqueta todos los detalles de una acción posible devuelta por el sistema de reglas del juego a través de la clase <code>Anotador</code>. Cada jugador (IA o humano) recibe un listado de estas actuaciones en su turno y debe seleccionar el índice de la actuación que desea ejecutar.
+                La clase <code>Actuacion</code> empaqueta todos los detalles de una acción posible devuelta por el sistema de reglas del juego a través de la clase <code>Anotador</code>. En la versión <strong>2026-2</strong> el orden de los atributos y del constructor es <code>(indiceDados, anotacion, seRespeta, accion)</code>:
             </p>
 
             <div class="code-container">
                 <div class="code-header">
-                    <span class="badge badge-purple">Actuacion.h</span>
+                    <span class="badge badge-purple">src/Actuacion.h</span>
                     <button class="copy-btn" onclick="copyCode('codeActuacion')"><i class="fa-solid fa-copy"></i> Copiar</button>
                 </div>
                 <pre><code id="codeActuacion"><span class="token-keyword">class</span> <span class="token-type">Actuacion</span> {
 <span class="token-keyword">public</span>:
-    <span class="token-type">std::string</span> accion;             <span class="token-comment">// Tipo de acción ("lanzar", "anotar", "sobre", "nada", "dormida")</span>
-    <span class="token-type">Anotacion</span> anotacion;            <span class="token-comment">// Estructura Anotacion asociada</span>
     <span class="token-type">std::vector&lt;int&gt;</span> indiceDados;   <span class="token-comment">// Índices de los dados [0-4] involucrados en la acción</span>
-    <span class="token-type">bool</span> seRespeta;                 <span class="token-comment">// Indica si la acción es parte de respetar un sobremesa</span>
+    <span class="token-type">Anotacion</span> anotacion;            <span class="token-comment">// Estructura Anotacion asociada</span>
+    <span class="token-type">bool</span> seRespeta;                 <span class="token-comment">// Indica si la acción es parte de respetar una jugada</span>
+    <span class="token-type">std::string</span> accion;             <span class="token-comment">// Tipo de acción ("lanzar", "anotar", "sobre", "nada", "dormida")</span>
 
     <span class="token-comment">// Constructor</span>
-    <span class="token-function">Actuacion</span>(<span class="token-type">std::string</span> acc, <span class="token-type">Anotacion</span> anot, <span class="token-type">std::vector&lt;int&gt;</span> idx, <span class="token-type">bool</span> respeta)
-        : <span class="token-function">accion</span>(acc), <span class="token-function">anotacion</span>(anot), <span class="token-function">indiceDados</span>(idx), <span class="token-function">seRespeta</span>(respeta) {}
+    <span class="token-function">Actuacion</span>(<span class="token-type">std::vector&lt;int&gt;</span> idx, <span class="token-type">Anotacion</span> anot, <span class="token-type">bool</span> respeta, <span class="token-type">std::string</span> acc)
+        : <span class="token-function">indiceDados</span>(idx), <span class="token-function">anotacion</span>(anot), <span class="token-function">seRespeta</span>(respeta), <span class="token-function">accion</span>(acc) {}
 
     <span class="token-type">void</span> <span class="token-function">display</span>() <span class="token-keyword">const</span>;
     <span class="token-type">void</span> <span class="token-function">displayCompacto</span>(<span class="token-type">int</span> indice = -1) <span class="token-keyword">const</span>;
@@ -709,34 +994,34 @@
             <h3>Miembros de la Clase</h3>
             <ul class="member-list">
                 <li class="member-item">
-                    <div class="member-name">accion <span class="member-type">(std::string)</span></div>
-                    <div class="member-desc">
-                        Describe el comportamiento semántico de esta jugada:
-                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--text-secondary);">
-                            <li><code>"lanzar"</code>: El jugador desea volver a tirar los dados indicados en <code>indiceDados</code>.</li>
-                            <li><code>"anotar"</code>: El jugador decide registrar la jugada en su tablero.</li>
-                            <li><code>"sobre"</code>: Acción válida únicamente en el <em>intento 1</em>, donde el jugador anota en la mesa y le pasa los dados al rival para que decida "si respeta" la anotación del sobremesa.</li>
-                            <li><code>"dormida"</code>: Declaración de victoria inmediata (dormida) al obtener 5 dados iguales del mismo valor de una sola tirada.</li>
-                            <li><code>"nada"</code>: Comportamiento nulo o de control en turnos especiales (como segundas pasadas de tiro).</li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="member-item">
-                    <div class="member-name">anotacion <span class="member-type">(Anotacion)</span></div>
-                    <div class="member-desc">
-                        Estructura que describe qué categoría del tablero y cuántos puntos se ven afectados por la acción (mayormente para <code>"anotar"</code>, <code>"sobre"</code> o tachar).
-                    </div>
-                </li>
-                <li class="member-item">
                     <div class="member-name">indiceDados <span class="member-type">(std::vector&lt;int&gt;)</span></div>
                     <div class="member-desc">
                         Vector con valores en el rango <code>[0-4]</code> que indica cuáles dados están involucrados en la acción. En una acción de tipo <code>"lanzar"</code>, este vector especifica exactamente cuáles dados volverá a tirar el motor del juego.
                     </div>
                 </li>
                 <li class="member-item">
+                    <div class="member-name">anotacion <span class="member-type">(Anotacion)</span></div>
+                    <div class="member-desc">
+                        Estructura que describe cuántos puntos y qué categoría del tablero se ven afectados por la acción (mayormente para <code>"anotar"</code>, <code>"sobre"</code> o tachar).
+                    </div>
+                </li>
+                <li class="member-item">
                     <div class="member-name">seRespeta <span class="member-type">(bool)</span></div>
                     <div class="member-desc">
-                        Variable booleana. Si es <code>true</code>, se indica que la tirada actual respeta el juego del rival anterior o una jugada de mano especial. Si es <code>false</code>, no se aplica respeto automático.
+                        Variable booleana. Si es <code>true</code>, se indica que la tirada actual respeta una jugada mayor de mano ya anotada previamente. Si es <code>false</code>, no se aplica respeto automático.
+                    </div>
+                </li>
+                <li class="member-item">
+                    <div class="member-name">accion <span class="member-type">(std::string)</span></div>
+                    <div class="member-desc">
+                        Describe el comportamiento semántico de esta jugada:
+                        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--text-secondary);">
+                            <li><code>"lanzar"</code>: El jugador desea volver a tirar los dados indicados en <code>indiceDados</code>.</li>
+                            <li><code>"anotar"</code>: El jugador decide registrar la jugada en su tablero.</li>
+                            <li><code>"sobre"</code>: Acción válida únicamente en el <em>intento 1</em>, donde el jugador reserva temporalmente una anotación para decidir en el segundo intento si conservarla o mejorarla.</li>
+                            <li><code>"dormida"</code>: Declaración de victoria inmediata (dormida) al obtener 5 dados iguales del mismo valor de una sola tirada.</li>
+                            <li><code>"nada"</code>: Comportamiento nulo o de control en turnos especiales (como segundas pasadas de tiro cuando ya se anotó en el intento 1).</li>
+                        </ul>
                     </div>
                 </li>
             </ul>
@@ -762,7 +1047,7 @@
         <section id="ejemplos">
             <h2><i class="fa-solid fa-code"></i> Ejemplos Básicos de Uso en C++</h2>
             <p>
-                A continuación se presentan diferentes ejemplos prácticos que ilustran cómo inicializar y manipular estos dos componentes en un flujo real de C++.
+                A continuación se presentan diferentes ejemplos prácticos que ilustran cómo inicializar y manipular estos componentes en un flujo real de C++ con la interfaz del semestre <strong>2026-2</strong>.
             </p>
 
             <div class="tabs-header">
@@ -785,17 +1070,17 @@
 
 <span class="token-type">int</span> <span class="token-function">main</span>() {
     <span class="token-comment">// 1. Instanciar una anotación directa de Full de Mano (35 puntos)</span>
-    <span class="token-type">Anotacion</span> fullMano = {<span class="token-string">"full"</span>, <span class="token-number">35</span>};
+    <span class="token-type">Anotacion</span> fullMano = {<span class="token-number">35</span>, <span class="token-string">"full"</span>};
 
     <span class="token-comment">// 2. Crear una actuación para anotar el Full en la planilla</span>
-    <span class="token-type">Actuacion</span> accionAnotar(<span class="token-string">"anotar"</span>, fullMano, {}, <span class="token-keyword">false</span>);
+    <span class="token-type">Actuacion</span> accionAnotar({}, fullMano, <span class="token-keyword">false</span>, <span class="token-string">"anotar"</span>);
 
     <span class="token-comment">// 3. Crear una actuación para lanzar los dados en las posiciones 0, 2 y 4</span>
-    <span class="token-type">Anotacion</span> sinAnotar = {<span class="token-string">""</span>, <span class="token-number">-1</span>};
-    <span class="token-type">Actuacion</span> accionLanzar(<span class="token-string">"lanzar"</span>, sinAnotar, {<span class="token-number">0</span>, <span class="token-number">2</span>, <span class="token-number">4</span>}, <span class="token-keyword">false</span>);
+    <span class="token-type">Anotacion</span> sinAnotar = {<span class="token-number">-1</span>, <span class="token-string">""</span>};
+    <span class="token-type">Actuacion</span> accionLanzar({<span class="token-number">0</span>, <span class="token-number">2</span>, <span class="token-number">4</span>}, sinAnotar, <span class="token-keyword">false</span>, <span class="token-string">"lanzar"</span>);
 
     <span class="token-comment">// 4. Crear una actuación para tachar/borrar la categoría "grande"</span>
-    <span class="token-type">Actuacion</span> accionTachar(<span class="token-string">"anotar"</span>, {<span class="token-string">"grande"</span>, <span class="token-number">0</span>}, {}, <span class="token-keyword">false</span>);
+    <span class="token-type">Actuacion</span> accionTachar({}, {<span class="token-number">0</span>, <span class="token-string">"grande"</span>}, <span class="token-keyword">false</span>, <span class="token-string">"anotar"</span>);
 
     <span class="token-keyword">return</span> <span class="token-number">0</span>;
 }</code></pre>
@@ -804,7 +1089,7 @@
 
             <!-- TAB 2: JUGADOR BOT -->
             <div id="tab-jugador-bot" class="tab-pane">
-                <p>Ejemplo de cómo un Bot evaluador analiza el vector de <code>Actuacion</code> disponibles provistas por el motor de juego para tomar una decisión informada:</p>
+                <p>Ejemplo de cómo un Bot evaluador implementa la nueva firma de <code>jugar(...)</code> y analiza las actuaciones posibles:</p>
                 <div class="code-container">
                     <div class="code-header">
                         <span class="badge badge-purple">JugadorHeuristico.h</span>
@@ -818,9 +1103,9 @@
 <span class="token-keyword">public</span>:
     <span class="token-function">JugadorHeuristico</span>(<span class="token-type">std::string</span> nom) : <span class="token-function">Jugador</span>(nom) {}
 
-    <span class="token-type">int</span> <span class="token-function">jugar</span>(<span class="token-keyword">const</span> <span class="token-type">std::map&lt;std::string, Marcador&gt;</span>&amp; <span class="token-comment">/*marcadores*/</span>,
+    <span class="token-type">int</span> <span class="token-function">jugar</span>(<span class="token-keyword">const</span> <span class="token-type">std::vector&lt;int&gt;</span>&amp; <span class="token-comment">/*dados*/</span>,
               <span class="token-keyword">const</span> <span class="token-type">std::vector&lt;Actuacion&gt;</span>&amp; actuacionesPosibles,
-              <span class="token-keyword">const</span> <span class="token-type">std::vector&lt;int&gt;</span>&amp; <span class="token-comment">/*dados*/</span>,
+              <span class="token-keyword">const</span> <span class="token-type">std::map&lt;std::string, Marcador&gt;</span>&amp; <span class="token-comment">/*marcadores*/</span>,
               <span class="token-keyword">const</span> <span class="token-type">Anotacion</span>&amp; <span class="token-comment">/*resultadoPrevio*/</span>) <span class="token-keyword">override</span> {
         
         <span class="token-comment">// Estrategia heurística básica:</span>
@@ -862,7 +1147,7 @@
                         <span class="badge badge-purple">Output de Consola</span>
                     </div>
                     <pre><code><span class="token-comment">// Código ejecutado:</span>
-<span class="token-type">Actuacion</span> act(<span class="token-string">"anotar"</span>, {<span class="token-string">"escalera"</span>, <span class="token-number">25</span>}, {}, <span class="token-keyword">false</span>);
+<span class="token-type">Actuacion</span> act({}, {<span class="token-number">25</span>, <span class="token-string">"escalera"</span>}, <span class="token-keyword">false</span>, <span class="token-string">"anotar"</span>);
 
 <span class="token-type">std::cout</span> &lt;&lt; <span class="token-string">"--- Salida de display() ---"</span> &lt;&lt; <span class="token-type">std::endl</span>;
 act.<span class="token-function">display</span>();
@@ -872,13 +1157,13 @@ act.<span class="token-function">displayCompacto</span>(<span class="token-numbe
 
 <span class="token-comment">/* SALIDA GENERADA EN CONSOLA:
 --- Salida de display() ---
-accion: anotar
-anotacion: (escalera, 25)
 indiceDados: []
+anotacion: (25, escalera)
 seRespeta: False
+accion: anotar
 
 --- Salida de displayCompacto(4) ---
-[4](anotar,('escalera', 25), [], False)
+[4]([], (25, 'escalera'), False, anotar)
 */</span></code></pre>
                 </div>
             </div>
@@ -899,7 +1184,7 @@ seRespeta: False
                         <select id="playAccion" class="form-control" onchange="updatePlayground()">
                             <option value="anotar">anotar (Guardar en planilla)</option>
                             <option value="lanzar" selected>lanzar (Tirar un subconjunto de dados)</option>
-                            <option value="sobre">sobre (Proponer sobremesa al rival)</option>
+                            <option value="sobre">sobre (Reservar para el 2do intento)</option>
                             <option value="tachar">anotar con 0 puntos (Tachar jugada)</option>
                             <option value="dormida">dormida (Victoria directa)</option>
                             <option value="nada">nada (Control interno)</option>
@@ -973,7 +1258,7 @@ seRespeta: False
         </section>
 
         <footer>
-            <p>&copy; 2026 Cacho Engine Simulator - Documentación de Clases Core. Creado con fines didácticos e interactivos.</p>
+            <p>&copy; 2026 Cacho Engine Simulator (Edición Semestre 2026-2) - Documentación de Reglas y Clases Core.</p>
         </footer>
     </main>
 
@@ -1082,26 +1367,25 @@ seRespeta: False
             let formattedAccion = (accion === 'tachar') ? 'anotar' : accion;
             
             let cppCode = `// 1. Declarar la Anotacion\n`;
-            cppCode += `Anotacion anot = {"${juego}", ${puntos}};\n\n`;
+            cppCode += `Anotacion anot = {${puntos}, "${juego}"};\n\n`;
             cppCode += `// 2. Instanciar la Actuacion\n`;
             cppCode += `Actuacion act(\n`;
-            cppCode += `    "${formattedAccion}",\n`;
-            cppCode += `    anot,\n`;
             cppCode += `    {${accion === 'lanzar' ? diceStr : ''}},\n`;
-            cppCode += `    ${seRespeta ? 'true' : 'false'}\n`;
+            cppCode += `    anot,\n`;
+            cppCode += `    ${seRespeta ? 'true' : 'false'},\n`;
+            cppCode += `    "${formattedAccion}"\n`;
             cppCode += `);`;
             
             document.getElementById('outCppCode').textContent = cppCode;
 
             // 2. Generate display() output simulation
-            let displayOutput = `accion: ${formattedAccion}\n`;
-            displayOutput += `anotacion: (${juego}, ${puntos})\n`;
-            
             let activeDice = (accion === 'lanzar') ? selectedDice : [];
             let diceListOutput = activeDice.join(', ');
             
-            displayOutput += `indiceDados: [${diceListOutput}]\n`;
-            displayOutput += `seRespeta: ${seRespeta ? 'True' : 'False'}`;
+            let displayOutput = `indiceDados: [${diceListOutput}]\n`;
+            displayOutput += `anotacion: (${puntos}, ${juego})\n`;
+            displayOutput += `seRespeta: ${seRespeta ? 'True' : 'False'}\n`;
+            displayOutput += `accion: ${formattedAccion}`;
             
             document.getElementById('outDisplay').textContent = displayOutput;
 
@@ -1113,7 +1397,7 @@ seRespeta: False
             
             let diceListCompact = activeDice.join(',');
             
-            compactOutput += `(${formattedAccion},('${juego}', ${puntos}), [${diceListCompact}], ${seRespeta ? 'True' : 'False'})`;
+            compactOutput += `([${diceListCompact}], (${puntos}, '${juego}'), ${seRespeta ? 'True' : 'False'}, ${formattedAccion})`;
             
             document.getElementById('outDisplayCompacto').textContent = compactOutput;
         }
