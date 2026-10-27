@@ -1,65 +1,64 @@
-# Cacho-CPP
+# Cacho-CPP (Edición Semestre 2026-2)
 
-A standalone C++ implementation of the Cacho game engine (Alalay rules), including a Web API and a Web Client.
+Implementación en C++ del motor del juego **Cacho** (reglas Alalay con **Bono de Chicas +40 pts**), incluyendo una API Web y un Cliente Web interactivo.
 
-## Repository Structure
+📖 **Documentación Oficial y Especificaciones (Semestre 2026-2):**
+- Sitio Web (GitHub Pages): [https://robertoasin.github.io/cacho-cpp/documentacion.html](https://robertoasin.github.io/cacho-cpp/documentacion.html)
+- Archivo local: [`documentacion.html`](./documentacion.html)
 
-- `src/`: Core engine headers and standalone simulation runner.
-- `api/`: Web API server using the Crow framework.
-- `web/`: Frontend web interface.
+## Estructura del Repositorio
 
-## 🚀 Getting Started
+- `src/`: Motor principal en C++, interfaz de jugadores (`Jugador.h`, `Actuacion.h`, `Marcador.h`, `Anotador.h`) y ejecutable de simulación.
+- `api/`: Servidor Web API construido con el framework Crow.
+- `web/`: Interfaz web para jugar contra agentes o probar partidas.
+- `documentacion.html`: Sitio web interactivo con las reglas completas del semestre 2026-2 y la documentación de clases.
 
-### Prerequisites
+## 🚀 Acceso al Repositorio (Semestre 2026-2)
 
-- `g++` (C++17 support)
+Para clonar directamente la rama correspondiente al semestre **2026-2**:
+
+```bash
+git clone -b semestre-2026-2 --single-branch https://github.com/robertoasin/cacho-cpp.git
+cd cacho-cpp
+```
+
+### Requisitos
+
+- `g++` (con soporte para C++17)
 - `make`
-- `boost-system`, `boost-thread` (required for the Web API)
+- `boost-system`, `boost-thread` (únicamente requeridos si se desea compilar la API Web)
 
-### Building the Project
+### Compilación
 
-You can build both the core simulation and the Web API from the root directory:
-
-```bash
-make
-```
-
-Alternatively, you can build them individually:
-
-```bash
-# To build the standalone simulation
-cd src
-make
-
-# To build the Web API
-cd api
-make
-```
-
-## 🎲 Running simulations
-
-The `src/cacho` executable runs a game between automated players (Random).
+Puedes compilar únicamente el simulador de consola (recomendado para desarrollar y probar tu jugador):
 
 ```bash
 cd src
+make
 ./cacho
 ```
 
-## 🌐 Running the Web API
+O compilar tanto el motor como la API Web desde la raíz:
 
-The `api/cacho_api` executable starts a server on `http://localhost:8080`.
+```bash
+make
+```
+
+## 🌐 Ejecución de la Interfaz Web (Opcional)
+
+El ejecutable `api/cacho_api` inicia un servidor local en `http://localhost:8080`:
 
 ```bash
 cd api
 ./cacho_api
 ```
 
-Once running, open [http://localhost:8080](http://localhost:8080) in your browser to play.
+Luego abre [http://localhost:8080](http://localhost:8080) en tu navegador.
 
-## 🛠 Features
+## 🛠 Novedades de la Versión 2026-2
 
-- **Decoupled Engine**: Pure C++ implementation with no external dependencies (except for Crow/Boost in the API).
-- **Alalay Rules**: Full support for Alalay tournament rules.
-- **Web Interface**: Modern web client for human play.
-- **Random Player**: Included for testing and simulation.
-- **Human Player**: Base class and logic for human interaction.
+- **Bono de Chicas (+40 pts)**: Si un jugador logra anotar **al menos 3 dados en cada una de las 6 categorías chicas** (`balas >= 3`, `tontos >= 6`, `trenes >= 9`, `cuadras >= 12`, `quinas >= 15` y `senas >= 18`), recibe automáticamente un bono adicional de **+40 puntos** en su puntaje total (`marcador.bonoChicas`).
+- **Interfaz Actualizada (`Jugador`, `Actuacion`, `Anotacion`)**:
+  - `Jugador::jugar(dados, actuacionesPosibles, marcadores, resultadoPrevio)`
+  - `Anotacion { int puntos; std::string juego; }`
+  - `Actuacion(indiceDados, anotacion, seRespeta, accion)`
